@@ -10,7 +10,7 @@ const GroupOrdersPage = () => {
   useEffect(() => {
     const fetchGroupOrders = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/group-and-match`); // adjust URL if deployed
+        const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/group-and-match`); // adjust URL if deployed
         const data = await response.json();
         setGroupOrders(data.groupedMatches); // as returned by backend
       } catch (err) {
