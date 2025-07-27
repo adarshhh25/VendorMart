@@ -26,6 +26,46 @@ const CartPage = ({ cart, setCurrentPage }) => {
       </div>
     );
   }
+  const handleCheckout = async () => {
+  const vendorInfo = {
+    vendorId: "V102", // can be dynamic in future
+    vendorName: "Spicy Treat",
+    location: { lat: 19.17, lon: 72.98 },
+    deliveryTime: new Date(Date.now() + 2 * 60 * 60 * 1000) // 2 hours from now
+  };
+
+  const orderPayload = {
+    ...vendorInfo,
+    items: cart.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      grade: item.grade || "A", // default grade
+      price: item.price
+    }))
+  };
+
+  try {
+    const res = await fetch("http://localhost:3000/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderPayload)
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Order placed successfully!");
+      console.log("Submitted order:", data);
+      // Optionally reset cart or go to confirmation page
+    } else {
+      console.error("Order error:", data);
+      alert("❌ Failed to place order");
+    }
+  } catch (err) {
+    console.error("Network error:", err);
+    alert("❌ Network error during order submission");
+  }
+};
+
 
   return (
     <div className="space-y-6 animate-fadeIn">
@@ -43,9 +83,13 @@ const CartPage = ({ cart, setCurrentPage }) => {
             <span>Total: ₹{getTotalPrice()}</span>
             <span className="text-green-600">Group Savings: ₹{getGroupSavings()}</span>
           </div>
-          <button className="w-full mt-4 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors transform hover:scale-105">
-            Proceed to Checkout
-          </button>
+          <button
+  onClick={handleCheckout}
+  className="w-full mt-4 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors transform hover:scale-105"
+>
+  Proceed to Checkout
+</button>
+
         </div>
       </div>
     </div>
