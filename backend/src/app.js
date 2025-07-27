@@ -9,7 +9,11 @@ const app = express()
 const URI = process.env.MONGO_URI;
 mongoConnect(URI);
 
-app.use(cors('https://vendor-mart-pzaa.vercel.app'));
+app.use(cors({
+  origin: '*',       // allow any origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
