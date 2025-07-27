@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import GroupOrderCard from '../ui/GroupOrderCard';
-import { groupOrders } from '../../data/groupOrders';
 
 const GroupOrdersPage = () => {
+  const [groupOrders, setGroupOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchGroupOrders = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/group-and-match`); // adjust URL if deployed
+        const data = await response.json();
+        setGroupOrders(data.groupedMatches); // as returned by backend
+      } catch (err) {
+        setError('Failed to load group orders');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroupOrders();
+  }, []);
+
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -13,11 +33,19 @@ const GroupOrdersPage = () => {
           Create Group Order
         </button>
       </div>
-      
+
       <div className="grid gap-6">
-        {groupOrders.map(order => (
-          <GroupOrderCard key={order.id} order={order} />
-        ))}
+        {loading ? (
+          <p>Loading group orders...</p>
+        ) : error ? (
+          <p className="text-red-600">{error}</p>
+        ) : groupOrders.length === 0 ? (
+          <p>No group orders available yet.</p>
+        ) : (
+          groupOrders.map((order, index) => (
+            <GroupOrderCard key={index} order={order} />
+          ))
+        )}
       </div>
     </div>
   );

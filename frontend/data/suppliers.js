@@ -1,10 +1,10 @@
 export const suppliers = [
   {
     id: 1,
-    name: 'Sharma Fresh Supplies',
+    name: 'AgroMart Distributors',
     rating: 4.8,
-    distance: 2.1,
-    deliveryTime: '30 mins',
+    distance: 26.93,
+    deliveryTime: '1hr 10 mins',
     trusted: true,
     verified: true,
     completedOrders: 150,
@@ -12,9 +12,9 @@ export const suppliers = [
   },
   {
     id: 2,
-    name: 'Krishna Wholesale',
+    name: 'FarmBasket Wholesalee',
     rating: 4.6,
-    distance: 3.5,
+    distance: 13.5,
     deliveryTime: '45 mins',
     trusted: true,
     verified: true,
@@ -23,12 +23,23 @@ export const suppliers = [
   },
   {
     id: 3,
-    name: 'Local Veggie Market',
+    name: 'SpiceHarvest Traders',
     rating: 4.2,
-    distance: 1.8,
-    deliveryTime: '25 mins',
+    distance: 24.8,
+    deliveryTime: '50 mins',
     trusted: false,
     verified: false,
+    completedOrders: 25,
+    phone: '+91 76543 21098'
+  },
+  {
+    id: 4,
+    name: 'GreenRoots Wholesale',
+    rating: 4.2,
+    distance: 16.8,
+    deliveryTime: '30 mins',
+    trusted: true,
+    verified: true,
     completedOrders: 25,
     phone: '+91 76543 21098'
   }

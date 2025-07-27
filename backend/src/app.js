@@ -17,8 +17,10 @@ app.use(express.urlencoded({
 
 
 import orderRouter from './routes/order.js'
+import groupRouter from './routes/grouping.js'
 
-app.use('/api', orderRouter)
+app.use('/api', orderRouter);
+app.use("/api/group-and-match", groupRouter);
 
 app.listen(3000, () => {
     console.log(`Server Running on Port: http://localhost:3000`)
