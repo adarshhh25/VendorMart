@@ -1,36 +1,28 @@
-import express from 'express'
-import cors from 'cors'
+// src/app.js
+import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
-import mongoConnect from './db.js' 
+import mongoConnect from './db.js';
 
 dotenv.config();
-const app = express()
+const app = express();
 
 const URI = process.env.MONGO_URI;
 mongoConnect(URI);
 
 app.use(cors({
-  origin: '*',       // allow any origin
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-app.options('*', cors());
+
 app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}))
+app.use(express.urlencoded({ extended: true }));
 
-
-import orderRouter from './routes/order.js'
-import groupRouter from './routes/grouping.js'
+import orderRouter from './routes/order.js';
+import groupRouter from './routes/grouping.js';
 
 app.use('/api', orderRouter);
-app.use("/api/group-and-match", groupRouter);
+app.use('/api/group-and-match', groupRouter);
 
-app.get('/api/content', (req, res) => {
-  res.json({ message: 'Welcome to the Vendor Mart API' })
-})
-
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server Running on Port: http://localhost:${process.env.PORT || 3000}`);
-})
+export default app; // ✅ Important: export the app instead of listening
