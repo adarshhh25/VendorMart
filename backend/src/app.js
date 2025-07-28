@@ -27,8 +27,10 @@ import groupRouter from './routes/grouping.js'
 app.use('/api', orderRouter);
 app.use("/api/group-and-match", groupRouter);
 
-app.get('/api/content' (req))
+app.get('/api/content', (req, res) => {
+  res.json({ message: 'Welcome to the Vendor Mart API' })
+})
 
-app.listen(3000, () => {
-    console.log(`Server Running on Port: http://localhost:3000`)
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server Running on Port: http://localhost:${process.env.PORT || 3000}`);
 })
