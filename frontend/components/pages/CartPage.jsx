@@ -45,7 +45,7 @@ const CartPage = ({ cart, setCurrentPage }) => {
   };
 
   try {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/orders`, {
+    const res = await fetch("http://localhost:3000/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderPayload)

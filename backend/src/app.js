@@ -14,6 +14,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -25,6 +26,8 @@ import groupRouter from './routes/grouping.js'
 
 app.use('/api', orderRouter);
 app.use("/api/group-and-match", groupRouter);
+
+app.get('/api/content' (req))
 
 app.listen(3000, () => {
     console.log(`Server Running on Port: http://localhost:3000`)
